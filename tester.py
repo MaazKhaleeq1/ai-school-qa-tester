@@ -47,7 +47,7 @@ def generate_code_review(function_code):
     Generates a code review using a fine-tuned model.
     """
     llm = ChatOpenAI(
-        model_name="ft:davinci-002:trilogy-central-engineering::9WeXyh8r",
+        model_name="ft:gpt-3.5-turbo-0125:trilogy-central-engineering::9WfG5IKj",
         temperature=0,
     )
 
@@ -103,7 +103,7 @@ tools = [
 
 
 # Configure the language model
-llm = ChatOpenAI(model="ft:davinci-002:trilogy-central-engineering::9WeXyh8r", temperature=0)
+llm = ChatOpenAI(model="ft:gpt-3.5-turbo-0125:trilogy-central-engineering::9WfG5IKj", temperature=0)
 
 
 # Set up the prompt template

@@ -43,7 +43,7 @@ print("Validation File ID:", validation_file_id)
 response = client.fine_tuning.jobs.create(
   training_file=training_file_id.id,
   validation_file=validation_file_id.id,
-  model="davinci-002",
+  model="gpt-3.5-turbo-0125",
   hyperparameters={
     "n_epochs": 15,
     "batch_size": 3,
@@ -90,12 +90,12 @@ import time
 status = client.fine_tuning.jobs.retrieve(job_id).status
 while status not in ["succeeded", "failed"]:
   print("Job is in", status, "state at", datetime.datetime.now())
-  time.sleep(60)
+  time.sleep(5)
   status = client.fine_tuning.jobs.retrieve(job_id).status
 print("Job completed with status:", status)
 
 # Step 19: Print the status of other fine-tuning jobs in the subscription
-result = client.fine_tuning_jobs.list()
+result = client.fine_tuning.jobs.list()
 print("Found  ", len(result), "fine-tuning jobs in the subscription.")
 
 # Step 20: Retrieve and print the ID of the fine-tuned model
