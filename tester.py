@@ -42,12 +42,12 @@ def get_page_contents(files):
     return [f"___{doc.metadata['source']}___\n{doc.page_content}" for doc in loader.load()]
 
 @tool
-def generate_unit_tests(function_code):
+def generate_code_review(function_code):
     """
-    Generates the unit tests using OpenAI and `unittest` python library.
+    Generates a code review using a fine-tuned model.
     """
     llm = ChatOpenAI(
-        model_name="gpt-4o",
+        model_name="ft:davinci-002:trilogy-central-engineering::9WeXyh8r",
         temperature=0,
     )
 
@@ -56,12 +56,12 @@ def generate_unit_tests(function_code):
     prompt_str = f"""
     {system_prompt}
     
-    ## Function to be tested:
+    ## Code to be reviewed:
     ```python
     {function_code}
     ```
 
-    ## Generate comprehensive unit tests for the function above:
+    ## Provide a detailed code review for the function above:
     """
 
     response = llm.invoke(prompt_str)
@@ -95,7 +95,7 @@ tools = [
     ShellTool(ask_human_input=True),
     look_at_existing_app,
     get_page_contents,
-    generate_unit_tests,
+    generate_code_review,
     create_new_file,
     update_file
     # Add more tools if needed
@@ -103,7 +103,7 @@ tools = [
 
 
 # Configure the language model
-llm = ChatOpenAI(model="gpt-4o", temperature=0)
+llm = ChatOpenAI(model="ft:davinci-002:trilogy-central-engineering::9WeXyh8r", temperature=0)
 
 
 # Set up the prompt template
